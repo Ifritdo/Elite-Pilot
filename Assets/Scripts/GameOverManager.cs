@@ -3,16 +3,44 @@ using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
-    // Función para reiniciar el juego
-    public void RestartGame()
+    public GameObject victoryCanvas;
+    public GameObject gameOverCanvas;
+
+    public static GameOverManager instance;
+
+    private void Awake()
     {
-        Time.timeScale = 1; // Devolvemos el tiempo a su flujo normal.
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Recargamos la escena actual.
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Función para cerrar el juego
+    public void PlayerLost()
+    {
+        gameOverCanvas.SetActive(true);
+        Time.timeScale = 0;
+        ScoreManager.instance.DisplayFinalScore();
+    }
+
+    public void PlayerWon()
+    {
+        victoryCanvas.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void ExitGame()
     {
-        Application.Quit(); // Cierra la aplicación. Nota: Esto no funciona en el editor, solo en el juego compilado.
+        Application.Quit();
     }
 }

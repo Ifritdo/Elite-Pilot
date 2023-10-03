@@ -20,8 +20,6 @@ public class Ship : MonoBehaviour
     bool speedUp;
     bool shoot;
 
-    public GameObject gameOverCanvas;
-
     void Start()
     {
         healthBar.SetHealth(health);
@@ -132,7 +130,6 @@ public class Ship : MonoBehaviour
                 }
             }
 
-            // Si no se pudo determinar el tipo o obtener el componente, registras una advertencia.
             Debug.LogWarning($"Daño no reconocido al chocar con: {collision.gameObject.name} con el tag {collision.gameObject.tag}");
         }
     }
@@ -159,12 +156,9 @@ public class Ship : MonoBehaviour
                 bullet.SetActive(false);
             }
 
-            // Suponiendo que tengas un ScoreManager, si no es el caso, comenta la siguiente línea
-            ScoreManager.instance.DisplayFinalScore();
+            GameOverManager.instance.PlayerLost();
 
             Destroy(gameObject);
-            Time.timeScale = 0;
-            gameOverCanvas.SetActive(true);
         }
 
         isInvulnerable = true;
@@ -177,4 +171,3 @@ public class Ship : MonoBehaviour
         healthBar.SetHealth(health);
     }
 }
-
