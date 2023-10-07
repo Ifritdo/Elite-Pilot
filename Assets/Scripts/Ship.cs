@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Ship : MonoBehaviour
 {
@@ -143,6 +145,7 @@ public class Ship : MonoBehaviour
             return;
 
         health -= Mathf.RoundToInt(damage);
+        health = Mathf.Max(health, 0); // Esta línea asegura que la salud no puede ser negativa.
         healthBar.SetHealth(health);
 
         if (health <= 0)
@@ -156,7 +159,8 @@ public class Ship : MonoBehaviour
                 bullet.SetActive(false);
             }
 
-            GameOverManager.instance.PlayerLost();
+            // En lugar de llamar a GameOverManager.instance.PlayerLost();, cambiaremos directamente a la escena de Game Over.
+            SceneManager.LoadScene("EndMenu");
 
             Destroy(gameObject);
         }
@@ -164,6 +168,7 @@ public class Ship : MonoBehaviour
         isInvulnerable = true;
         timeSinceDamage = 0;
     }
+
 
     public void Heal(int amount)
     {

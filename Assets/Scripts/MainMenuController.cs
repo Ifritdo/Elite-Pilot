@@ -7,7 +7,7 @@ public class MainMenuController : MonoBehaviour
     public void StartGame()
     {
         // Asume que tu escena de juego se llama "GameScene". Cambia el nombre si es necesario.
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("Game");
     }
 
     // Esta función se encargará de cerrar el juego
@@ -18,10 +18,12 @@ public class MainMenuController : MonoBehaviour
 
         // Esta línea es solo para que funcione el botón de salir en el Editor de Unity.
         // Puedes comentarla o eliminarla cuando vayas a compilar tu juego.
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
-    // Si decides tener un botón que regrese al menú desde la pantalla de GameOver, puedes usar esta función
+    // Función para regresar al menú principal desde cualquier escena
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
