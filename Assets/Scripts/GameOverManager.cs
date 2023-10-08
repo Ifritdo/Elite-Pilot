@@ -24,7 +24,6 @@ public class GameOverManager : MonoBehaviour
     {
         gameOverCanvas.SetActive(true);
         Time.timeScale = 0;
-        ScoreManager.instance.DisplayFinalScore();
     }
 
     public void PlayerWon()

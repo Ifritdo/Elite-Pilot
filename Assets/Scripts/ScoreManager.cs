@@ -1,12 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI finalScoreText;
     public static int score = 0;
 
     private void Awake()
@@ -14,6 +12,7 @@ public class ScoreManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -29,7 +28,10 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateScoreUI()
     {
-        scoreText.text = "Score: " + score;
+        if (scoreText != null) // Se asegura de que scoreText no es null antes de actualizar.
+        {
+            scoreText.text = "Score: " + score;
+        }
     }
 
     public int GetScore()
@@ -37,8 +39,8 @@ public class ScoreManager : MonoBehaviour
         return score;
     }
 
-    public void DisplayFinalScore()
+    public void ResetScore()
     {
-        finalScoreText.text = "Game Over\nScore Final: " + score;
+        score = 0;
     }
 }
